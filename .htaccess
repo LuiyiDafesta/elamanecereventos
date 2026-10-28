@@ -1,42 +1,104 @@
 # ========================================================
-# EL AMANECER EVENTOS - CONFIGURACIÓN APACHE / FEROZO
+# EL AMANECER EVENTOS - .htaccess de Producción
+# Compatible con Ferozo / DonWeb (Apache 2.4+ / PHP 7.4 - 8.3+)
 # ========================================================
 
-# 1. UTF-8
+# 1. PÁGINA DE INICIO POR DEFECTO
+DirectoryIndex index.html index.php
+
+# 2. EVITAR LISTADO PÚBLICO DE CARPETAS
+Options -Indexes
+
+# 3. CODIFICACIÓN PREDETERMINADA
 AddDefaultCharset UTF-8
 
-# 2. Forzar HTTPS si está disponible en Ferozo
+# 4. TIPOS MIME MODERNOS (Evita que Ferozo sirva webp/fuentes como archivos genéricos)
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/svg+xml .svg .svgz
+  AddType font/woff .woff
+  AddType font/woff2 .woff2
+  AddType font/ttf .ttf
+  AddType application/javascript .js
+  AddType text/css .css
+  AddType application/json .json
+</IfModule>
+
+# 5. PERMITIR CARGA DE FUENTES (CORS)
+<IfModule mod_headers.c>
+  <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font.css|css|js)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
+
+# 6. FORZAR HTTPS (Compatible con proxy/SSL de Ferozo)
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteBase /
+
+  # Redirección segura a HTTPS si el certificado SSL está activo
   RewriteCond %{HTTPS} off
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-# 3. Compresión GZIP / Deflate para carga rápida
+# 7. COMPRESIÓN GZIP / DEFLATE (Acelera la carga un 70%)
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
-  AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/xml
   AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE font/otf
 </IfModule>
 
-# 4. Caché de navegador para recursos estáticos
+# 8. CACHÉ DE NAVEGADOR (Expires Headers)
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 1 month"
+
+  # HTML: no cachear agresivamente para ver cambios inmediatos
   ExpiresByType text/html "access plus 0 seconds"
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
+
+  # CSS y JavaScript: 1 mes
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+
+  # Imágenes y multimedia: 1 año
   ExpiresByType image/jpeg "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType image/x-icon "access plus 1 year"
+
+  # Fuentes: 1 año
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
 </IfModule>
 
-# 5. Seguridad básica
+# 9. PROTECCIÓN DE ARCHIVOS SENSIBLES
+<FilesMatch "^\.(git|env|htaccess|gitignore)">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# 10. CABECERAS DE SEGURIDAD
 <IfModule mod_headers.c>
-  Header set X-Content-Type-Options "nosniff"
-  Header set X-XSS-Protection "1; mode=block"
+  # Previene que otros sitios incrusten la web en iframes maliciosos
   Header always append X-Frame-Options SAMEORIGIN
+  # Evita sniffing de tipos MIME
+  Header set X-Content-Type-Options "nosniff"
+  # Protección XSS
+  Header set X-XSS-Protection "1; mode=block"
+  # Política de Referrer segura
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
+
+# 11. REDIRECCIÓN EN CASO DE ERROR 404 (Lleva al inicio de la landing)
+ErrorDocument 404 /index.html
