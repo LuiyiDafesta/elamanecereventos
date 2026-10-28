@@ -1,0 +1,1779 @@
+/* ========================================================
+   EL AMANECER EVENTOS - MAIN STYLESHEET
+   Fidelidad al PDF Original - Auditoría Final v2
+   Tipografía: TwCenMT-Regular → Jost (Google Fonts fallback)
+   ======================================================== */
+
+:root {
+  /* Brand Color Palette - Extracted directly from PDF */
+  --color-teal-dark: #215757;
+  --color-teal-deep: #163d3d;
+  --color-teal-light: #2c6f6f;
+  --color-amarillito: #FAFAEA;
+  --color-cream-bg: #FFFFFF;
+  --color-cream-card: #FDFBF7;
+  --color-cream-accent: #EDE9CE;
+  --color-cream-text: #FAFAE9;
+  --color-dark-text: #030405;
+  --color-dark-body: #2B2F30;
+  --color-muted-text: #687072;
+  --color-white: #FFFFFF;
+  --color-black-footer: #030405;
+  --color-whatsapp: #25D366;
+
+  /* Typography: Tw Cen MT / Twentieth Century, fallback Jost */
+  --font-main: 'Tw Cen MT', 'Twentieth Century', 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Weiss', 'Cormorant Garamond', Georgia, serif;
+
+  /* Dimensions & Spacing */
+  --container-max: 1140px;
+  --section-pad-y: 80px;
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------------- RESET & BASE ---------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-white);
+  color: var(--color-dark-body);
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-smooth);
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* ---------------- BUTTONS ---------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border-radius: 3px;
+  transition: var(--transition-smooth);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-hero {
+  background-color: var(--color-amarillito);
+  color: var(--color-teal-dark);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+}
+
+.btn-hero:hover {
+  background-color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* PDF: COORDINAR VISITA button in header - white bg with teal text, thin border */
+.btn-outline-nav {
+  background-color: var(--color-white);
+  color: var(--color-teal-dark);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 8px 22px;
+  font-size: 0.82rem;
+  font-weight: 400;
+  border-radius: 3px;
+  letter-spacing: 0.1em;
+}
+
+.btn-outline-nav:hover {
+  background-color: var(--color-cream-accent);
+  color: var(--color-teal-dark);
+  transform: translateY(-1px);
+}
+
+/* PDF: Footer COORDINAR VISITA - white outline on dark bg */
+.btn-footer-contact {
+  background-color: transparent;
+  color: var(--color-white);
+  font-size: 0.9rem;
+  padding: 13px 32px;
+  max-width: 240px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.1em;
+  font-weight: 400;
+}
+
+.btn-footer-contact:hover {
+  background-color: var(--color-white);
+  color: var(--color-dark-text);
+  transform: translateY(-2px);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ---------------- PATTERN RIBBONS ---------------- */
+/* PDF patterns are ~24px tall geometric repeating bands */
+.pattern-ribbon {
+  height: 28px;
+  width: 100%;
+  background-repeat: repeat-x;
+  background-size: auto 28px;
+  background-position: left center;
+  flex-shrink: 0;
+}
+
+.pattern-dark-ribbon {
+  height: 28px;
+  background-size: auto 28px;
+  background-repeat: repeat-x;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+/* ---------------- HEADER / NAVBAR ---------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--color-teal-dark);
+  transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+  padding: 16px 0;
+}
+
+.site-header.scrolled {
+  background-color: rgba(33, 87, 87, 0.98);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 10px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.16);
+}
+
+.header-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+/* PDF: nav links are TwCenMT-Regular 13.8pt, color #FAFAE9 */
+.nav-link {
+  color: var(--color-cream-text);
+  font-size: 0.86rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  position: relative;
+  padding: 6px 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-cream-accent);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-white);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px;
+  height: 19px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--color-white);
+  border-radius: 2px;
+  transition: var(--transition-smooth);
+}
+
+/* ---------------- MOBILE DRAWER ---------------- */
+.mobile-menu-drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100vh;
+  background-color: var(--color-teal-deep);
+  z-index: 1100;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: right 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.35);
+}
+
+.mobile-menu-drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.drawer-logo {
+  height: 38px;
+  width: auto;
+}
+
+.drawer-close {
+  color: var(--color-white);
+  font-size: 2rem;
+  line-height: 1;
+  padding: 4px;
+}
+
+.drawer-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.drawer-link {
+  color: var(--color-white);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  padding: 8px 0;
+  display: block;
+}
+
+.drawer-link:hover {
+  color: var(--color-cream-accent);
+}
+
+.drawer-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-whatsapp-drawer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: rgba(37, 211, 102, 0.15);
+  color: var(--color-whatsapp);
+  border: 1px solid var(--color-whatsapp);
+  padding: 11px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.84rem;
+}
+
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1050;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.drawer-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ========================================================
+   HERO SECTION
+   PDF: Full-width photo, page 992px wide, hero image y=68 to y=480
+   Hero height ≈ 412pt on a 992pt wide page
+   Title: TwCenMT-Regular 53pt, color #FAFAE9
+   Tagline: TwCenMT-Regular 15.1pt, color #FAFAE9
+   Subtitle: TwCenMT-Regular 20pt, color #FAFAE9
+   ======================================================== */
+.hero-section {
+  position: relative;
+  width: 100%;
+  /* PDF: hero from y=68 (below header) to y=540 ≈ 472pt on 992 wide → ratio ~2.1:1 */
+  aspect-ratio: 2.1 / 1;
+  min-height: 480px;
+  max-height: 680px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px 40px;
+  color: var(--color-white);
+  overflow: hidden;
+  margin: 0;
+  background-color: var(--color-teal-dark);
+}
+
+.hero-bg-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-bg-wrapper picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  transform: scale(1.01);
+  transition: transform 6s ease-out;
+}
+
+.hero-section:hover .hero-bg-img {
+  transform: scale(1.04);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(circle at center, rgba(15, 30, 30, 0.35) 0%, rgba(10, 20, 20, 0.6) 100%);
+}
+
+.hero-content {
+  max-width: 860px;
+  position: relative;
+  z-index: 3;
+  margin: 0 auto;
+  animation: heroFadeIn 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+/* PDF: 15.1pt ≈ 0.94rem */
+.hero-tagline {
+  display: inline-block;
+  font-size: 0.94rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-cream-text);
+  margin-bottom: 18px;
+  font-weight: 400;
+}
+
+/* PDF: 53pt ≈ 3.3rem */
+.hero-title {
+  font-size: 3.3rem;
+  line-height: 1.12;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+  color: var(--color-cream-text);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* PDF: 20pt ≈ 1.25rem */
+.hero-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--color-cream-text);
+  font-weight: 400;
+  margin-bottom: 36px;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================================
+   SECTION: EL LUGAR
+   PDF: 50/50 split, image left fills height, text right on white bg
+   Pattern ribbon at TOP and BOTTOM of text column
+   Label: TwCenMT-Regular 14pt #030405
+   Heading: TwCenMT-Regular 38pt #030405
+   Body: TwCenMT-Regular 16pt #030405
+   
+   PDF measurements:
+   - Image: x=0 to x=496 (50% of 992)
+   - Text:  x=496 to x=992 (50%)
+   - Section height: y=540 to y=1100 ≈ 560pt
+   - Pattern top at y=540, pattern bottom at y=1072
+   - Label "EL LUGAR" at y=662, x=546
+   - Heading starts y=713
+   - Body text starts y=984
+   ======================================================== */
+.section-label {
+  display: block;
+  font-size: 0.875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-dark-text);
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+/* PDF: 38pt ≈ 2.375rem */
+.section-heading {
+  font-size: 2.375rem;
+  line-height: 1.2;
+  font-weight: 400;
+  color: var(--color-dark-text);
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+
+/* PDF: 16pt ≈ 1rem */
+.section-description {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-dark-text);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.section-el-lugar {
+  background-color: var(--color-white);
+  padding: 0;
+  margin: 0;
+}
+
+.el-lugar-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 560px;
+}
+
+.el-lugar-image-col {
+  width: 100%;
+  height: 100%;
+}
+
+.el-lugar-image-col picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.el-lugar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.el-lugar-text-col {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+}
+
+.el-lugar-inner-text {
+  max-width: 500px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px 60px;
+}
+
+/* ========================================================
+   SECTION: EXPERIENCIA
+   PDF: White bg, centered label "EXPERIENCIA" in teal #215757, 20pt
+   2x2 grid of photos with titles below
+   
+   PDF measurements:
+   - Section: y=1100 to y=2080
+   - Pattern ribbon (bottom of el-lugar) at ~y=1072
+   - White space between pattern bottom and "EXPERIENCIA" label
+   - Label "EXPERIENCIA" at y=1282 centered, color #215757
+   - Card images start at y=1326
+   - Images occupy x=86-479 (left) and x=514-907 (right)
+   - Gap between columns: ~35px
+   - Image aspect ratio ~5:3 (≈1.67:1)
+   - Card titles: 24pt, descriptions: 12pt
+   - First row titles at y=1627, second row at y=2021
+   ======================================================== */
+.section-experiencia {
+  padding: 70px 0 80px;
+  background-color: var(--color-white);
+}
+
+.section-header-center {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+/* PDF: 20pt, #215757, letter-spacing wide */
+.section-label-center {
+  font-size: 1.25rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-teal-dark);
+  font-weight: 400;
+}
+
+.experiencia-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px 36px;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.exp-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+  transition: transform 0.3s ease;
+}
+
+.exp-card:hover {
+  transform: translateY(-4px);
+}
+
+/* PDF: Photos aspect ratio is roughly 393x280 ≈ 1.4:1, close to 4:3 but a bit wider */
+.exp-img-wrap {
+  width: 100%;
+  aspect-ratio: 1.4 / 1;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+
+.exp-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.exp-card:hover .exp-img-wrap img {
+  transform: scale(1.03);
+}
+
+/* PDF: 24pt ≈ 1.5rem */
+.exp-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-dark-text);
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+
+/* PDF: 12pt ≈ 0.75rem */
+.exp-desc {
+  font-size: 0.75rem;
+  color: var(--color-dark-text);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* ========================================================
+   SECTION: PROPUESTA
+   PDF: White space before. Then teal bg #215757
+   Dark pattern ribbon at TOP of teal section
+   Label: TwCenMT-Regular 20pt #EDE9CE
+   Title: TwCenMT-Regular 36.4pt #EDE9CE
+   Subtitle: TwCenMT-Regular 18pt #EDE9CE
+   Highlight: TwCenMT-Bold 16pt #EDE9CE
+   
+   PDF measurements:
+   - White gap between Experiencia and Propuesta
+   - Dark pattern at y≈2098 (top of teal)
+   - Teal bg from ~y=2080 to ~y=2440
+   - Label "PROPUESTA" at y=2184
+   - Title at y=2262
+   - Subtitle at y=2325
+   - Bold highlight at y=2382
+   ======================================================== */
+.section-propuesta {
+  background-color: var(--color-teal-dark);
+  color: var(--color-white);
+  padding: 0 0 70px 0;
+  position: relative;
+  text-align: center;
+}
+
+.propuesta-container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+/* PDF: 20pt */
+.propuesta-label {
+  display: block;
+  font-size: 1.25rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-cream-accent);
+  font-weight: 400;
+  margin-bottom: 35px;
+}
+
+/* PDF: 36.4pt ≈ 2.275rem */
+.propuesta-title {
+  font-size: 2.275rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  color: var(--color-cream-accent);
+}
+
+/* PDF: 18pt ≈ 1.125rem */
+.propuesta-subtitle {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--color-cream-accent);
+  font-weight: 400;
+  margin-bottom: 20px;
+  opacity: 0.92;
+}
+
+/* PDF: TwCenMT-Bold 16pt */
+.propuesta-highlight {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-cream-accent);
+}
+
+/* ========================================================
+   SECTION: CATERING
+   PDF: White bg, 50/50 split - text LEFT, image RIGHT
+   NO pattern between Propuesta and Catering
+   
+   PDF measurements:
+   - Section: y=2440 to y=2900
+   - Text column: x=0 to x=496, padding starts at x=52
+   - Image column: x=496 to x=992
+   - Label "CATERING" at y=2536, 14pt
+   - Heading 48pt at y=2584
+   - Body 16pt at y=2679
+   - Callout bold 14pt at y=2764
+   ======================================================== */
+.section-catering {
+  background-color: var(--color-white);
+  padding: 0;
+  margin: 0;
+}
+
+.catering-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 500px;
+}
+
+.catering-text-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--color-white);
+  padding: 50px 60px;
+}
+
+.catering-inner-text {
+  max-width: 500px;
+}
+
+/* PDF: TwCenMT-Bold 14pt */
+.catering-callout {
+  font-weight: 700;
+  color: var(--color-dark-text);
+  margin-top: 18px;
+  font-size: 0.875rem;
+}
+
+.catering-image-col {
+  width: 100%;
+  height: 100%;
+}
+
+.catering-image-col picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.catering-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* PDF: Catering heading is 48pt - much larger than El Lugar section */
+.catering-inner-text .section-heading {
+  font-size: 3rem;
+  line-height: 1.15;
+}
+
+/* ========================================================
+   SECTION: SERVICIOS
+   PDF: Amarillito/cream bg #FAFAEA
+   Pattern ribbon at top (BETWEEN catering and servicios)
+   
+   PDF measurements:
+   - Pattern ribbon between sections at y≈2900
+   - Amarillito bg from y≈2900 to y=3400
+   - Label "SERVICIOS" at y=3046, 20pt, centered
+   - Title 36pt at y=3102
+   - 5 icons at y=3170-3258 evenly spaced
+   - Icon labels at y=3258, 12pt
+   - Footer text at y=3322, 14pt
+   - Icons: x positions at ~102, ~283, ~476, ~646, ~825
+   ======================================================== */
+.section-servicios {
+  background-color: var(--color-amarillito);
+  padding: 0 0 70px 0;
+  text-align: center;
+}
+
+.servicios-container {
+  padding-top: 45px;
+}
+
+/* PDF: 20pt */
+.servicios-label {
+  display: block;
+  font-size: 1.25rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-dark-text);
+  font-weight: 400;
+  margin-bottom: 18px;
+}
+
+/* PDF: 36pt ≈ 2.25rem */
+.servicios-title {
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-dark-text);
+  margin-bottom: 50px;
+}
+
+.servicios-icons-grid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 45px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.servicio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 120px;
+  transition: transform 0.3s ease;
+}
+
+.servicio-item:hover {
+  transform: translateY(-4px);
+}
+
+/* PDF: Icons appear to be ~90px circles with light beige/gray bg */
+.servicio-icon-wrapper {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.servicio-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.servicio-item:hover .servicio-icon-img {
+  transform: scale(1.05);
+}
+
+/* PDF: 12pt */
+.servicio-name {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-dark-text);
+  letter-spacing: 0.02em;
+}
+
+/* PDF: 14pt */
+.servicios-footer-text {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-dark-text);
+  max-width: 680px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* ========================================================
+   BANNER CTA
+   PDF: Full-width photo, NO separator between servicios and CTA
+   Direct transition from amarillito to photo
+   
+   PDF measurements:
+   - Section: y=3400 to y=3850
+   - Full width photo (same as hero approach)
+   - Title: TwCenMT-Regular 47.2pt #FAFAE9 at y=3717 / y=3769
+   - Button COORDINAR VISITA at y=3851
+   ======================================================== */
+.cta-banner-section {
+  position: relative;
+  width: 100%;
+  /* PDF: ~450pt on 992pt wide → ratio ~2.2:1 */
+  aspect-ratio: 2.2 / 1;
+  min-height: 420px;
+  max-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px;
+  overflow: hidden;
+  background-color: var(--color-teal-dark);
+}
+
+.cta-banner-bg-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.cta-banner-bg-wrapper picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cta-banner-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+.cta-banner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(circle at center, rgba(12, 28, 28, 0.32) 0%, rgba(8, 18, 18, 0.58) 100%);
+}
+
+.cta-banner-content {
+  position: relative;
+  z-index: 3;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* PDF: 47.2pt ≈ 2.95rem */
+.cta-banner-title {
+  font-size: 2.95rem;
+  line-height: 1.18;
+  font-weight: 400;
+  color: var(--color-cream-text);
+  margin-bottom: 28px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================================
+   SECTION: UBICACIÓN
+   PDF: Teal bg #215757
+   
+   PDF measurements:
+   - Section: y=3860 to y=4410
+   - Teal bg
+   - Label "UBICACIÓN" at y=4124, 20pt, #FAFAE9
+   - Title "Visitanos." at y=4185, 47.2pt, #FAFAE9
+   - Subtitle at y=4208, 14pt, #FAFAE9
+   - Map screenshot below
+   ======================================================== */
+.section-ubicacion {
+  background-color: var(--color-teal-dark);
+  color: var(--color-white);
+  padding: var(--section-pad-y) 0;
+  text-align: center;
+}
+
+.ubicacion-container {
+  max-width: 920px;
+}
+
+/* PDF: 20pt */
+.ubicacion-label {
+  display: block;
+  font-size: 1.25rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-cream-text);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+/* PDF: 47.2pt ≈ 2.95rem */
+.ubicacion-title {
+  font-size: 2.95rem;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: var(--color-cream-text);
+}
+
+/* PDF: 14pt */
+.ubicacion-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-cream-text);
+  font-weight: 400;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.map-card-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+  background-color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.map-image-link {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+
+.map-image-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(33, 87, 87, 0);
+  transition: background-color 0.25s ease;
+}
+
+.map-image-link:hover::after {
+  background-color: rgba(33, 87, 87, 0.08);
+}
+
+.map-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.map-actions-bar {
+  background-color: var(--color-amarillito);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.btn-map-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--color-teal-dark);
+  color: var(--color-white);
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  transition: var(--transition-smooth);
+}
+
+.btn-map-action:hover {
+  background-color: var(--color-teal-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================================
+   FOOTER
+   PDF: Black bg #030405
+   3 columns: Logo+desc, Navigation, Contacto
+   
+   PDF measurements:
+   - Footer bg: full width dark/black
+   - Logo at left with "EL AMANECER EVENTOS" branding
+   - Description in lighter text
+   - Navigation: El Lugar, Experiencia, Catering, Contacto
+   - Contact: COORDINAR VISITA button, schedule
+   ======================================================== */
+.site-footer {
+  background-color: var(--color-black-footer);
+  color: var(--color-white);
+  padding: 70px 0 40px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 50px;
+  padding-bottom: 40px;
+}
+
+.footer-logo-img {
+  height: 55px;
+  width: auto;
+  margin-bottom: 24px;
+}
+
+.footer-brand-desc {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+/* PDF: "NAVEGACIÓN" heading in footer */
+.footer-heading {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.footer-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-nav-list a {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.footer-nav-list a:hover {
+  color: var(--color-white);
+  padding-left: 4px;
+}
+
+.footer-col-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.footer-schedule {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.schedule-days {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+
+/* PDF: No prominent footer-bottom in design - keep minimal */
+.footer-bottom {
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ========================================================
+   MODAL POPUP
+   ======================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(10, 25, 25, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-dialog {
+  background-color: var(--color-white);
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 36px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-backdrop.active .modal-dialog {
+  transform: translateY(0);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--color-muted-text);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.modal-close-btn:hover {
+  color: var(--color-dark-text);
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.modal-badge {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--color-teal-dark);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.modal-title {
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: var(--color-dark-text);
+  margin-bottom: 8px;
+}
+
+.modal-subtitle {
+  font-size: 0.92rem;
+  color: var(--color-muted-text);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-dark-body);
+  letter-spacing: 0.04em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  border: 1px solid #D8DCE0;
+  border-radius: 4px;
+  background-color: #FAFBFB;
+  color: var(--color-dark-text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-teal-dark);
+  box-shadow: 0 0 0 3px rgba(32, 75, 75, 0.12);
+  background-color: var(--color-white);
+}
+
+.form-actions {
+  margin-top: 8px;
+}
+
+.btn-submit {
+  width: 100%;
+  background-color: var(--color-teal-dark);
+  color: var(--color-white);
+  padding: 13px;
+  border-radius: 4px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: var(--color-teal-deep);
+  transform: translateY(-2px);
+}
+
+.modal-divider {
+  text-align: center;
+  position: relative;
+  margin: 16px 0;
+}
+
+.modal-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #E2E6E8;
+  z-index: 1;
+}
+
+.modal-divider span {
+  position: relative;
+  z-index: 2;
+  background-color: var(--color-white);
+  padding: 0 14px;
+  font-size: 0.82rem;
+  color: var(--color-muted-text);
+}
+
+.btn-whatsapp-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #25D366;
+  color: var(--color-white);
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.86rem;
+  letter-spacing: 0.05em;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-whatsapp-modal:hover {
+  background-color: #20BA5A;
+  transform: translateY(-2px);
+}
+
+.form-feedback {
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-feedback.success {
+  background-color: #E6F8EE;
+  color: #12723A;
+  border: 1px solid #A8E4C0;
+}
+
+.form-feedback.error {
+  background-color: #FDF0F0;
+  color: #B42318;
+  border: 1px solid #FECDCA;
+}
+
+/* ========================================================
+   FLOATING WHATSAPP BUTTON
+   ======================================================== */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: var(--color-whatsapp);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 22px rgba(37, 211, 102, 0.45);
+  z-index: 990;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.floating-whatsapp:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.55);
+}
+
+.whatsapp-tooltip {
+  position: absolute;
+  right: 68px;
+  background-color: #111;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(10px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.floating-whatsapp:hover .whatsapp-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ========================================================
+   RESPONSIVE BREAKPOINTS
+   ======================================================== */
+
+@media (max-width: 1080px) {
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  .section-heading {
+    font-size: 2.1rem;
+  }
+  .catering-inner-text .section-heading {
+    font-size: 2.5rem;
+  }
+  .el-lugar-inner-text {
+    padding: 36px 40px;
+  }
+  .catering-text-col {
+    padding: 36px 40px;
+  }
+}
+
+/* --- TABLET & BELOW (<= 900px) --- */
+@media (max-width: 900px) {
+  .main-nav {
+    display: none;
+  }
+  .mobile-toggle {
+    display: flex;
+  }
+
+  .hero-section {
+    aspect-ratio: auto;
+    min-height: 480px;
+    max-height: none;
+    padding: 110px 20px 50px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  /* Stack El Lugar */
+  .el-lugar-container {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .el-lugar-image-col {
+    height: 380px;
+  }
+
+  .el-lugar-inner-text {
+    padding: 40px 30px;
+  }
+
+  /* Experience single column */
+  .experiencia-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 0 20px;
+  }
+
+  /* Catering stack: Text first, then Image */
+  .catering-container {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .catering-text-col {
+    padding: 40px 30px 30px;
+  }
+
+  .catering-inner-text .section-heading {
+    font-size: 2.2rem;
+  }
+
+  .catering-image-col {
+    height: 350px;
+    width: 100%;
+  }
+
+  /* Footer stack */
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    text-align: center;
+  }
+
+  .footer-col-contact {
+    align-items: center;
+  }
+
+  .footer-logo-img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* CTA Banner */
+  .cta-banner-section {
+    aspect-ratio: auto;
+    min-height: 420px;
+    max-height: none;
+    padding: 75px 20px;
+  }
+
+  .cta-banner-title {
+    font-size: 2.3rem;
+  }
+
+  /* Propuesta */
+  .propuesta-title {
+    font-size: 2rem;
+  }
+
+  /* Ubicación */
+  .ubicacion-title {
+    font-size: 2.3rem;
+  }
+
+  /* Servicios */
+  .servicios-title {
+    font-size: 2rem;
+  }
+}
+
+/* --- TABLET COMPACT (<= 768px) --- */
+@media (max-width: 768px) {
+  .servicios-icons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 16px;
+    max-width: 320px;
+    margin: 0 auto 36px;
+  }
+
+  .servicio-item {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .servicio-item:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 130px;
+  }
+
+
+}
+
+/* --- MOBILE (<= 600px, including 430px and 390px) --- */
+@media (max-width: 600px) {
+  .site-header {
+    padding: 11px 0;
+  }
+
+  .logo-img {
+    height: 42px;
+  }
+
+  .hero-section {
+    min-height: 420px;
+    padding: 95px 16px 40px;
+  }
+
+  .hero-tagline {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    margin-bottom: 24px;
+  }
+
+  .section-heading {
+    font-size: 1.75rem;
+    line-height: 1.22;
+    margin-bottom: 18px;
+  }
+
+  .section-description {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .el-lugar-image-col {
+    height: 300px;
+  }
+
+  .el-lugar-inner-text {
+    padding: 28px 20px 24px;
+  }
+
+  .section-label-center {
+    font-size: 1rem;
+  }
+
+  .exp-title {
+    font-size: 1.25rem;
+  }
+
+  .propuesta-title {
+    font-size: 1.8rem;
+    line-height: 1.22;
+    margin-bottom: 18px;
+  }
+
+  .propuesta-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .propuesta-highlight {
+    font-size: 0.92rem;
+  }
+
+  .catering-text-col {
+    padding: 30px 20px 24px;
+  }
+
+  .catering-inner-text .section-heading {
+    font-size: 1.9rem;
+  }
+
+  .catering-image-col {
+    height: 300px;
+  }
+
+  .servicios-title {
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+  }
+
+  .servicio-icon-wrapper {
+    width: 72px;
+    height: 72px;
+  }
+
+  .servicio-name {
+    font-size: 0.72rem;
+  }
+
+  .servicios-footer-text {
+    font-size: 0.85rem;
+    padding: 0 10px;
+  }
+
+  .cta-banner-section {
+    min-height: 380px;
+    padding: 50px 18px;
+  }
+
+  .cta-banner-title {
+    font-size: 1.9rem;
+    line-height: 1.22;
+    margin-bottom: 24px;
+  }
+
+  .cta-banner-bg-img {
+    object-position: 55% bottom;
+  }
+
+  .ubicacion-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .ubicacion-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 30px;
+  }
+
+
+
+  .map-actions-bar {
+    justify-content: center;
+    padding: 10px 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .modal-dialog {
+    padding: 26px 18px;
+  }
+
+  .floating-whatsapp {
+    bottom: 18px;
+    right: 18px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .floating-whatsapp svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .footer-logo-img {
+    height: 45px;
+  }
+}

@@ -1,0 +1,13 @@
+# Pesados y referencias
+REferenciaWeb/
+extracted_assets/
+tools/
+assets/images/*orig*
+
+# Sistema y logs
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+.vscode/
+.idea/
